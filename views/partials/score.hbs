@@ -1,0 +1,28 @@
+<li class="d-flex flex-row align-items-center justify-content-start">
+	<div class="d-flex flex-row align-items-center justify-content-start">
+		
+		<div class="team_name"><a href="/sportsteam/team.html">{{home_name_splitter home_team}}
+		 
+		 {{#if showMark}}
+		 <span style="color:limegreen; font-size:35px">✓</span></a></div>
+		 {{/if}}
+	</div>
+	{{#if showMark}}
+		<div class="text-center">
+			<div>{{league_name}}</div>
+			<div style="font-size:13px">{{odds}} <span style="color:limegreen; font-size:20px">({{scores}})</span></div>
+			<div style="font-size:11px">{{time}} {{date}}</div>
+		</div>
+	{{else}}
+		<div class="tex-center2">
+			
+			<div style="font-size:13px">{{odds}} <span style="color:limegreen; font-size:20px">({{scores}})</span></div>
+			<div style="font-size:11px">{{time}} {{date}}</div>
+		</div>
+	{{/if}}
+	
+	<div class="d-flex flex-row align-items-center justify-content-end">
+		<div class="team_name text-right"><a href="/sportsteam/team.html">{{away_name_splitter away_team}}</a></div>
+		
+	</div>
+</li>

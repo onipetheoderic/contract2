@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+    
+<!-- Mirrored from Contract compliance and Payment management system.com/skote/layouts/horizontal/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jan 2020 18:08:55 GMT -->
+<head>
+        <meta charset="utf-8" />
+        <title>Contract Compliance and Payment Management System</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Contract compliance and Payment management system" name="description" />
+        <meta content="Contract compliance and Payment management system" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="/assets/images/favicon.ico">
+
+        <!-- Bootstrap Css -->
+        <link href="/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body>
+        
+<script>
+
+  $(document).ready(function(){
+			setTimeout(function(){
+    	$('.notice_wrapper').slideUp('slow', function(){
+        	$(this).remove();
+          })
+        }, 2000);
+	
+});
+</script>
+   <div class="notice_wrapper">		  	
+	<p class="alert">{{{data.success}}}</p>				
+	</div>
+	
+
+<style type="text/css">
+
+.alert {
+    padding: 25px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+  
+.alert-success {
+color: #FFF;
+background-color: #19B698;
+border-color: #0FAC8E;
+}
+  
+.alert-info {
+color: #FFF;
+background-color: #4AA3DF;
+border-color: #4099D5;
+}
+.notice_wrapper {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(135,216,211,0.5);
+   
+}
+.notice_wrapper_error {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: rgba(102, 4, 4, 0.5);
+   
+}
+.alert, .notice {
+    padding-top: 1.7rem;
+    text-align: center;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.alert-danger {
+    color: #FFF;
+    background-color: #EA6153;
+    border-color: #E05749;
+}
+
+</style>
+        <div class="home-btn d-none d-sm-block">
+            <a href="/" class="text-dark"><i class="fas fa-home h2"></i></a>
+        </div>
+        <div class="account-pages my-5 pt-sm-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6 col-xl-5">
+                        <div class="card overflow-hidden">
+                            
+                                {{{body}}}
+            
+                            </div>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <p>Don't have an account ? <a href="auth-register.html" class="font-weight-medium text-primary"> Signup now </a> </p>
+                            <p>© Contract Compliance and Payment Management System </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+<!-- Mirrored from Contract compliance and Payment management system.com/skote/layouts/horizontal/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jan 2020 18:08:55 GMT -->
+</html>

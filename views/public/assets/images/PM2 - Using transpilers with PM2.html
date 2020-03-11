@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<!-- saved from url=(0067)https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="copyright" content="Keymetrics Inc.">
+<meta name="description" content="Advanced process manager for production Node.js applications. Load balancer, logs facility, startup script, micro service management, at a glance.">
+
+<meta property="og:url" content="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PM2 - Using transpilers with PM2">
+<meta property="og:description" content="Advanced process manager for production Node.js applications. Load balancer, logs facility, startup script, micro service management, at a glance.">
+<meta property="og:image" content="https://raw.githubusercontent.com/unitech/pm2/master/pres/pm2.20d3ef.png">
+<meta name="google-site-verification" content="ELR1mLPjKnUWvC62UIAp4fpVUvO4ToECWOK_jb922bI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@keymetrics_io">
+<meta name="twitter:title" content="PM2 - Using transpilers with PM2">
+<meta name="twitter:description" content="Advanced process manager for production Node.js applications. Load balancer, logs facility, startup script, micro service management, at a glance.">
+<meta name="twitter:image:src" content="https://raw.githubusercontent.com/unitech/pm2/master/pres/pm2.20d3ef.png">
+<meta name="twitter:url" content="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2">
+<link rel="canonical" href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2">
+<link rel="stylesheet" href="./PM2 - Using transpilers with PM2_files/css">
+<link rel="stylesheet" href="./PM2 - Using transpilers with PM2_files/main.css">
+<link rel="icon" type="image/png" href="https://pm2.keymetrics.io/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="https://pm2.keymetrics.io/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="https://pm2.keymetrics.io/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/x-icon" href="https://pm2.keymetrics.io/favicon.ico">
+
+<title>PM2 - Using transpilers with PM2</title>
+
+    <link rel="stylesheet" href="./PM2 - Using transpilers with PM2_files/font-awesome.min.css">
+    <link rel="stylesheet" href="./PM2 - Using transpilers with PM2_files/docsearch.min.css">
+  <script type="text/javascript" async="" src="./PM2 - Using transpilers with PM2_files/linkid.js.download"></script><script async="" src="./PM2 - Using transpilers with PM2_files/analytics.js.download"></script><script type="text/javascript" async="" src="./PM2 - Using transpilers with PM2_files/embed.js.download"></script><style type="text/css">
+button.btn[data-v-cef78672]{display:inline-block;font-weight:300;line-height:1.25;text-align:center;white-space:nowrap;vertical-align:middle;user-select:none;border:1px solid transparent;cursor:pointer;letter-spacing:1px;transition:all .15s ease
+}
+button.btn.btn-sm[data-v-cef78672]{padding:.4rem .8rem;font-size:.8rem;border-radius:.2rem
+}
+button.btn.btn-primary[data-v-cef78672]{color:#fff;background-color:#45C8F1;border-color:#45C8F1
+}
+button.btn.btn-outline-primary[data-v-cef78672]{color:#45C8F1;background-color:transparent;border-color:#45C8F1
+}
+button.btn.btn-danger[data-v-cef78672]{color:#fff;background-color:#FF4949;border-color:#FF4949
+}
+.text-muted[data-v-cef78672]{color:#8492A6
+}
+.text-center[data-v-cef78672]{text-align:center
+}
+.drop-down-enter[data-v-cef78672],.drop-down-leave-to[data-v-cef78672]{transform:translateX(0) translateY(-20px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0
+}
+.drop-down-enter-active[data-v-cef78672],.drop-down-leave-active[data-v-cef78672]{transition:all .15s
+}
+.move-left-enter[data-v-cef78672],.move-left-leave-to[data-v-cef78672]{transform:translateY(0) translateX(-80px);transition-timing-function:cubic-bezier(0.74, 0.04, 0.26, 1.05);opacity:0
+}
+.move-left-enter-active[data-v-cef78672],.move-left-leave-active[data-v-cef78672]{transition:all .15s
+}
+.shake[data-v-cef78672]{animation:shake-data-v-cef78672 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;transform:translate3d(0, 0, 0)
+}
+@keyframes shake-data-v-cef78672{
+10%,90%{transform:translate3d(-1px, 0, 0)
+}
+20%,80%{transform:translate3d(2px, 0, 0)
+}
+30%,50%,70%{transform:translate3d(-4px, 0, 0)
+}
+40%,60%{transform:translate3d(4px, 0, 0)
+}
+}
+.pulse[data-v-cef78672]{animation:pulse-data-v-cef78672 2s ease infinite
+}
+@keyframes pulse-data-v-cef78672{
+0%{opacity:.7
+}
+50%{opacity:.4
+}
+100%{opacity:.7
+}
+}
+.flash-once[data-v-cef78672]{animation:flash-once 3.5s ease 1
+}
+@keyframes fade-up-data-v-cef78672{
+0%{transform:translate3d(0, 10px, 0);opacity:0
+}
+100%{transform:translate3d(0, 0, 0);opacity:1
+}
+}
+.fade-in[data-v-cef78672]{animation:fade-in-data-v-cef78672 .3s ease-in-out
+}
+@keyframes fade-in-data-v-cef78672{
+0%{opacity:0
+}
+100%{opacity:1
+}
+}
+.spin[data-v-cef78672]{animation-name:spin-data-v-cef78672;animation-duration:2000ms;animation-iteration-count:infinite;animation-timing-function:linear
+}
+@keyframes spin-data-v-cef78672{
+from{transform:rotate(0deg)
+}
+to{transform:rotate(360deg)
+}
+}
+.bounceIn[data-v-cef78672]{animation-name:bounceIn-data-v-cef78672;transform-origin:center bottom;animation-duration:1s;animation-fill-mode:both;animation-iteration-count:1
+}
+@keyframes bounceIn-data-v-cef78672{
+0%,20%,40%,60%,80%,100%{-webkit-transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1);transition-timing-function:cubic-bezier(0.215, 0.61, 0.355, 1)
+}
+0%{opacity:1;-webkit-transform:scale3d(0.8, 0.8, 0.8);transform:scale3d(0.8, 0.8, 0.8)
+}
+20%{-webkit-transform:scale3d(1.1, 1.1, 1.1);transform:scale3d(1.1, 1.1, 1.1)
+}
+40%{-webkit-transform:scale3d(0.9, 0.9, 0.9);transform:scale3d(0.9, 0.9, 0.9)
+}
+60%{opacity:1;-webkit-transform:scale3d(1.03, 1.03, 1.03);transform:scale3d(1.03, 1.03, 1.03)
+}
+80%{-webkit-transform:scale3d(0.97, 0.97, 0.97);transform:scale3d(0.97, 0.97, 0.97)
+}
+100%{opacity:1;-webkit-transform:scale3d(1, 1, 1);transform:scale3d(1, 1, 1)
+}
+}
+@keyframes dots-data-v-cef78672{
+0%,20%{color:rgba(0,0,0,0);text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)
+}
+40%{color:#8492A6;text-shadow:0.25em 0 0 rgba(0,0,0,0),0.5em 0 0 rgba(0,0,0,0)
+}
+60%{text-shadow:0.25em 0 0 #8492A6,0.5em 0 0 rgba(0,0,0,0)
+}
+80%,100%{text-shadow:.25em 0 0 #8492A6, .5em 0 0 #8492A6
+}
+}
+@keyframes recording-data-v-cef78672{
+0%{box-shadow:0px 0px 5px 0px rgba(173,0,0,0.3)
+}
+65%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0.3)
+}
+90%{box-shadow:0px 0px 5px 5px rgba(173,0,0,0)
+}
+}
+html[data-v-cef78672]{max-height:500px
+}
+body[data-v-cef78672]{margin:0;font-size:100%;color:#3C4858;width:350px;max-height:500px
+}
+a[data-v-cef78672]{text-decoration:none;color:#45C8F1
+}
+h1[data-v-cef78672],h2[data-v-cef78672],h3[data-v-cef78672],h4[data-v-cef78672]{margin-top:0
+}
+.container_selected_area[data-v-cef78672]{padding:0px;position:fixed;z-index:1000000;top:0px;left:0px;right:0px;bottom:0px;display:none;visibility:hidden
+}
+.container_selected_area.active[data-v-cef78672]{visibility:visible;display:block
+}
+.container_selected_area .label[data-v-cef78672]{font-family:"Didact Gothic Regular",sans-serif;font-size:22px;text-align:center;padding-top:15px
+}
+.container_selected_area .area[data-v-cef78672]{border:1px solid #1e83ff;background:rgba(30,131,255,0.1);display:none;position:fixed;z-index:1000000;box-sizing:border-box
+}
+.container_selected_area .area.active[data-v-cef78672]{display:block;top:0px;left:0px
+}
+.hide[data-v-cef78672]{display:none
+}
+</style><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.15d8f2a22cfa6b9f96345c682b01a08f.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.b9167d06dc7bd01b59d6d6332d6aafa1.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.a0b0b564b806112a1c4571475f829256.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"></head>
+  <body>
+    <header id="menu">
+  <div class="header-wrapper">
+    <nav class="main-nav">
+      <a href="https://pm2.keymetrics.io/" title="Go to home page" class="logo-link">
+        <img width="206" alt="PM2 logo" src="./PM2 - Using transpilers with PM2_files/pm2-logo-1.png">
+      </a>
+      <div class="menu">
+        <a title="Open menu" href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#menu" class="button accent-border border-corners inner-shadows menu-button" style="top: 32px;">
+          <div class="menu-icon"></div>
+        </a>
+        <a class="menu-overlay" href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#" title="Close the menu"></a>
+        <div class="menu-content">
+          <div class="doc-links">
+            <a href="https://github.com/Unitech/pm2" title="Github Source Code">
+              Github
+            </a>
+            <a href="https://pm2.keymetrics.io/docs/usage/quick-start/" title="Go to Quick start" class="">
+              Quick start
+            </a>
+            <a href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/" title="Go to Documentation" class="">
+              Documentation
+            </a>
+            <a href="https://pm2.keymetrics.io/docs/usage/use-pm2-with-cloud-providers/" title="Go to Integrations" class="">
+              Integrations
+            </a>
+          </div>
+          <a href="https://id.keymetrics.io/api/oauth/register" title="Get started" class="button accent-border border-corners inner-shadows">
+            Monitor PM2
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+    <main>
+      <section class="section-doc">
+        <div class="section-background">
+          <div class="section-wrapper">
+            <div class="hexagon hexagon-1"></div>
+            <div class="hexagon hexagon-2"></div>
+            <div class="hexagon hexagon-3"></div>
+            <div class="hexagon hexagon-4"></div>
+          </div>
+        </div>
+        <div class="section-wrapper">
+          <h1>Using transpilers with PM2</h1>
+          <div class="doc-nav-and-content">
+            <nav>
+              <div class="search-field">
+                <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input type="text" placeholder="Search" class="ds-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-label="search input" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Exo, sans-serif; font-size: 20.4px; font-style: normal; font-variant: normal; font-weight: 300; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span class="ds-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0" style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div class="ds-dataset-1"></div></span></span>
+                <i class="fa fa-search"></i>
+              </div>
+              <div class="nav-mobile-title"><div>
+                      
+                        Using transpilers with PM2
+                      
+                    </div><i class="fa fa-chevron-up"></i></div><ul>
+                
+                <li class="nav-section ">
+
+                  <a class="nav-section-title" href="https://pm2.keymetrics.io/docs/usage/quick-start/">Quick Start</a>
+
+                  <ul class="nav-section-content">
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/quick-start/" title="Quick Start">
+                        Quick Start
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/process-management/" title="Process Management">
+                        Process Management
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                
+                <li class="nav-section ">
+
+                  <a class="nav-section-title" href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/">Documentation</a>
+
+                  <ul class="nav-section-content">
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/" title="Single Page Doc">
+                        Single Page Doc
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/cluster-mode" title="Cluster Mode">
+                        Cluster Mode
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/application-declaration/" title="Ecosystem File">
+                        Ecosystem File
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/signals-clean-restart/" title="Graceful Start/Shutdown">
+                        Graceful Start/Shutdown
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/environment/" title="Environment Variables">
+                        Environment Variables
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/log-management/" title="Logs">
+                        Logs
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/restart-strategies/" title="Restart Strategies">
+                        Restart Strategies
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/memory-limit/" title="Memory Limit Reload">
+                        Memory Limit Reload
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/update-pm2/" title="Update PM2">
+                        Update PM2
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/deployment/" title="Deployment">
+                        Deployment
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/startup/" title="Startup Script">
+                        Startup Script
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/process-metrics/" title="Custom Metrics">
+                        Custom Metrics
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/process-actions/" title="Process Actions">
+                        Process Actions
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/watch-and-restart/" title="Watch &amp; Restart">
+                        Watch &amp; Restart
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/monitoring/" title="Monitoring">
+                        Monitoring
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/source-map-support/" title="Source map support">
+                        Source map support
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/specifics/" title="Specifics">
+                        Specifics
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/pm2-api/" title="PM2 API">
+                        PM2 API
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/advanced/pm2-module-system/" title="Module System">
+                        Module System
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/expose/" title="Expose static file over http">
+                        Expose static file over http
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://github.com/Unitech/PM2/releases" title="Download as ZIP" target="_blank">
+                        Download as ZIP
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                
+                <li class="nav-section ">
+
+                  <a class="nav-section-title" href="https://pm2.keymetrics.io/docs/usage/use-pm2-with-cloud-providers/">Integrations</a>
+
+                  <ul class="nav-section-content">
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/use-pm2-with-cloud-providers/" title="Use PM2 in Cloud Providers">
+                        Use PM2 in Cloud Providers
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/usage/docker-pm2-nodejs/" title="Docker Integration">
+                        Docker Integration
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/integrations/heroku/" title="Heroku Integration">
+                        Heroku Integration
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/tutorials/pm2-nginx-production-setup" title="Production Setup with Nginx">
+                        Production Setup with Nginx
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry active">
+                      <a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2" title="Using transpilers with PM2">
+                        Using transpilers with PM2
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/tutorials/use-pm2-with-aws-elastic-beanstalk/" title="PM2 in ElasticBeanstalk">
+                        PM2 in ElasticBeanstalk
+                      </a>
+                    </li>
+                    
+                    <li class="nav-section-entry ">
+                      <a href="https://pm2.keymetrics.io/docs/tutorials/capistrano-like-deployments" title="Capistrano like deployments">
+                        Capistrano like deployments
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                
+              </ul>
+            </nav>
+            <article class="doc-content">
+
+            <h2 id="using-transpilers-with-pm2"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#using-transpilers-with-pm2">Using transpilers with PM2</a></h2>
+
+<h2 id="the-production-way"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#the-production-way">The production way</a></h2>
+
+<p>If you want to share, bundle, pack or deploy your code base, it’s often better to use plain old Javascript (VanillaJS). This means that you will have a pre-processing version of your code, and that you will then execute a Javascript entrypoint.</p>
+
+<p>For example, a usual directory structure will look like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── src
+├── dist
+└── package.json
+</code></pre></div></div>
+
+<p>Where <code class="language-plaintext highlighter-rouge">src</code> contains es6 , coffescript, or whatever and <code class="language-plaintext highlighter-rouge">dist</code> is the transpiled Javascript. 
+This is now easy to setup with PM2, as it will launch Javascript without any configuration.</p>
+
+<p>However, when writing code, it might make it harder to configure. Say that you want to watch and restart. You will have to watch, transpile, restart. PM2 is not a build system nor a task runner, so we advise you to prefer the second way.</p>
+
+<h2 id="the-development-way"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#the-development-way">The development way</a></h2>
+
+<p>This might work just fine on a production workflow even though we would not recommend it. Bundling code is safer, this will make the script start process slower and the cluster mode might not be available.</p>
+
+<h3 id="execution-interpreter"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#execution-interpreter">Execution interpreter</a></h3>
+
+<p>The easiest way to use transpilers with PM2 is to override the execution interpreter (<code class="language-plaintext highlighter-rouge">exec_interpreter</code>). Note that if this is changed, your code will <strong>only</strong> work in <code class="language-plaintext highlighter-rouge">fork_mode</code> (<a href="http://stackoverflow.com/a/36177256/1145578">check here for differences between fork modes</a>).</p>
+
+<p>To do so, specify the <code class="language-plaintext highlighter-rouge">--interpreter</code> option through the CLI or the <code class="language-plaintext highlighter-rouge">exec_interpreter</code> option through json configuration.</p>
+
+<h4 id="coffee-script"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#coffee-script">Coffee-script</a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#- npm install -g coffee-script
+#- pm2 start --interpreter coffee index.coffee
+</code></pre></div></div>
+
+<p>Just add <code class="language-plaintext highlighter-rouge">--watch</code> to have a daemonized coffee script that will restart on file changes.</p>
+
+<h4 id="babel"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#babel">Babel</a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#- npm install -g babel-cli
+#- pm2 start --interpreter babel-node index.es6
+</code></pre></div></div>
+
+<p>Remember that those commands will only work in <code class="language-plaintext highlighter-rouge">fork_mode</code>. If you want to run a PM2 cluster, please refer to the alternative below.</p>
+
+<h3 id="require-hook"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#require-hook">Require hook</a></h3>
+
+<p>This is my favorite option. It will run as standard Javascript by registering the transpiler inside the code. Most of those will actually change the node internal’s <code class="language-plaintext highlighter-rouge">require</code>, or tweak the <code class="language-plaintext highlighter-rouge">module</code> so that the required script gets transpiled before it is interpreted (example <a href="https://github.com/babel/babel/blob/93e5c0e64b1a14f3b138a01c55082225084f47b4/packages/babel-register/src/node.js#L104">babel</a> or <a href="https://github.com/jashkenas/coffeescript/blob/master/lib/coffee-script/register.js#L16">coffee</a>).</p>
+
+<p><em>This workaround could be considered more as a hack than an actual solution. Keep in mind that it will slow down the script startup.</em></p>
+
+<p>To make it work, prepare an entrypoint in plain Javascript which will call the require hook before including the non-transpiled source.</p>
+
+<h4 id="coffee-script-1"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#coffee-script-1">Coffee-script</a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># server.js
+require('coffee/register');
+require('./server.coffee');
+</code></pre></div></div>
+
+<h4 id="babel-1"><a href="https://pm2.keymetrics.io/docs/tutorials/using-transpilers-with-pm2#babel-1">Babel</a></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require('babel-register');
+require('./server.es6');
+</code></pre></div></div>
+
+<p>Check out the <a href="https://babeljs.io/docs/usage/require/">babeljs documentation</a> for more options.</p>
+
+<p>Then, all you have to do is start the script <code class="language-plaintext highlighter-rouge">pm2 start server.js</code>. As this will use the <code class="language-plaintext highlighter-rouge">node</code> interpreter, the cluster mode will work as expected.</p>
+
+
+            <a class="edit-page-button" target="_blank" href="https://github.com/pm2-hive/pm2-hive.github.io/tree/master/docs/tutorial/using-transpilers-with-pm2.md" title="Edit Page">
+              <i class="fa fa-2x fa-github" aria-hidden="true"></i>
+              Contribute to this page
+            </a>
+
+            <div id="disqus_thread"><iframe id="dsq-app8346" name="dsq-app8346" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./PM2 - Using transpilers with PM2_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 394px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+            <script type="text/javascript">
+              /* * * CONFIGURATION VARIABLES * * */
+              var disqus_shortname = 'pm2';
+
+              /* * * DON'T EDIT BELOW THIS LINE * * */
+              (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+              })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+  <div class="section-background">
+    <div class="section-wrapper">
+      <div class="hexagon hexagon-10"></div>
+      <div class="hexagon hexagon-11"></div>
+    </div>
+  </div>
+  <div class="section-wrapper">
+    <nav class="main-nav">
+      <a href="https://pm2.keymetrics.io/" title="Go to home page" class="logo-link">
+        <img alt="PM2 logo" src="./PM2 - Using transpilers with PM2_files/logo.png">
+      </a>
+      <div class="doc-links">
+        <a href="https://pm2.keymetrics.io/docs/usage/quick-start/" title="Go to Quick start">
+          Quick start
+        </a>
+        <a href="https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/" title="Go to Documentation">
+          Documentation
+        </a>
+        <a href="https://pm2.keymetrics.io/docs/usage/use-pm2-with-cloud-providers/" title="Go to Integrations">
+          Integrations
+        </a>
+      </div>
+      <div class="button-border">
+        <a href="https://id.keymetrics.io/api/oauth/register" title="Get started" class="button accent-border border-corners big inner-shadows">
+          Get started
+        </a>
+      </div>
+    </nav>
+    <div class="below-nav">
+      <div class="copyright">© 2019 PM2. All Rights Reserved.</div>
+      <div>
+        <a href="https://pm2.keymetrics.io/assets/terms_conditions.pdf" title="Open Terms of Use">Terms of Use</a>
+        //
+        <a href="https://pm2.keymetrics.io/assets/privacy_policy.pdf" title="Open Privacy Policy">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-51734350-5', 'auto');
+  ga('require', 'linkid');
+  ga('send', 'pageview');
+</script>
+
+
+    <script src="./PM2 - Using transpilers with PM2_files/docsearch.min.js.download"></script>
+    <script>
+      docsearch({
+        apiKey: '1d274d1e258b11c96ef6cfc32455be56',
+        indexName: 'keymetrics',
+        inputSelector: '.search-field input',
+      });
+    </script>
+    <script src="./PM2 - Using transpilers with PM2_files/docs.js.download"></script>
+    <script src="./PM2 - Using transpilers with PM2_files/menu.js.download"></script>
+  
+
+<input type="file" id="" name="file" style="display: none;"><div data-v-cef78672="" class="container_selected_area" style="cursor: url(&quot;chrome-extension://ialiedlpfknneamnbemcgmaboleiccdd/assets/images/cursor-imagen.svg&quot;) 9 9, crosshair;"><div data-v-cef78672="" class="area"></div></div><iframe style="display: none;" src="./PM2 - Using transpilers with PM2_files/saved_resource(1).html"></iframe><style>.tb_button {padding:1px;cursor:pointer;border-right: 1px solid #8b8b8b;border-left: 1px solid #FFF;border-bottom: 1px solid #fff;}.tb_button.hover {borer:2px outset #def; background-color: #f8f8f8 !important;}.ws_toolbar {z-index:100000} .ws_toolbar .ws_tb_btn {cursor:pointer;border:1px solid #555;padding:3px}   .tb_highlight{background-color:yellow} .tb_hide {visibility:hidden} .ws_toolbar img {padding:2px;margin:0px}</style></body></html>

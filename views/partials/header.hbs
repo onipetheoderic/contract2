@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Sports Team</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Sports Team template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/sportsteam/styles/bootstrap-4.1.2/bootstrap.min.css">
+<link href="/sportsteam/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/sportsteam/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/sportsteam/plugins/OwlCarousel2-2.3.4/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="/sportsteam/plugins/OwlCarousel2-2.3.4/animate.css">
+<link rel="stylesheet" type="text/css" href="/sportsteam/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="/sportsteam/styles/responsive.css">
+<script src="/sportsteam/js/jquery-3.3.1.min.js"></script>
+<script>
+		$(document).ready(function(){
+			setTimeout(function(){
+    	$('.notice_wrapper').slideUp('slow', function(){
+        	$(this).remove();
+          })
+        }, 2000);
+});
+</script>
+</head>
+<body>
+{{#if message.success}}
+   <div class="notice_wrapper">		  	
+	<p class="alert">{{message.success}}</p>				
+	</div>
+	{{else if message.error}}
+	<div class="notice_wrapper_error">			
+		<p class="alert">{{message.error}}</p>
+	</div>
+{{/if}}
+<div class="super_container">
+	
+	<!-- Header -->
+
+	<header class="header">
+
+		<!-- Header Content -->
+		<div class="header_content">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="main_nav_container_outer d-flex flex-row align-items-end justify-content-center trans_400">
+							<nav class="main_nav">
+								<div class="main_nav_container d-flex flex-row align-items-center justify-content-lg-start justify-content-center">
+									<div>
+										<!-- Header LIVE -->
+									<div class="header_live">
+										<a href="/register">
+											<div class="d-flex flex-row align-items-center justify-content-start">
+												<div>live</div>
+												<div>using real-life algorithms to predict sporting games</div>
+											</div>
+										</a>
+									</div>
+
+										<ul class="d-flex flex-row align-items-start justify-content-end">
+											<li class="active"><a href="/">home</a></li>
+											
+											<li><a href="/about">About Us</a></li>
+										</ul>
+									</div>
+									<div class="logo_container text-center"><div class="trans_400"><a href="/sportsteam/#"><img src="/sportsteam/images/logo.png" alt=""></a></div></div>
+									<div>
+										<ul class="d-flex flex-row align-items-start justify-content-start">
+											{{#if user}}
+										<li><a href="/admin">My Page</a></li>	
+										<li><a href="/wallet/mywallet">My Wallet</a></li>
+											{{else}}
+											<li><a href="/register">Register</a></li>	
+										<li><a href="/login">Login</a></li>
+
+											{{/if}}
+										</ul>
+									</div>
+								</div>
+							</nav>
+							<div class="hamburger">
+								<i class="fa fa-bars trans_200"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			
+			<!-- Header bar -->
+			<div class="header_bar">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="header_bar_content d-flex flex-row align-items-center justify-content-start">
+								<div class="header_links">
+									<ul class="d-flex flex-row align-items-start justify-content-start">
+										<li><a href="/admin">My Page</a></li>	
+										<li><a href="/wallet/mywallet">My Wallet</a></li>
+									</ul>
+								</div>
+								<div class="header_bar_right ml-auto d-flex flex-row align-items-center justify-content-start">
+									
+									<!-- Header LIVE -->
+									<div class="header_live">
+										<a href="/sportsteam/#">
+											<div class="d-flex flex-row align-items-center justify-content-start">
+												<div>live</div>
+												<div>using real-life algorithms to predict sporting games</div>
+											</div>
+										</a>
+									</div>
+
+									<!-- Sign up / Sign in -->
+	{{#if user}}
+	   	<div class="user_area">
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="/register">{{user.name}}</a></li>
+				<li><a href="/login">Balance: {{wallet.balance}}</a></li>
+			</ul>
+		</div>
+	{{else}}
+		<div class="user_area">
+			<ul class="d-flex flex-row align-items-start justify-content-start">
+				<li><a href="/register">Sign up</a></li>
+				<li><a href="/login">Sign in</a></li>
+			</ul>
+		</div>
+	{{/if}}
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</header>
+
+	<!-- Menu -->
+
+	<div class="menu">
+		<div class="menu_background">
+			<div class="menu_container d-flex flex-column align-items-end justify-content-start">
+				<div class="menu_close">close</div>
+				<div class="menu_user_area">
+					{{#if user}}
+						<ul class="d-flex flex-row align-items-start justify-content-end">
+							<li><a href="/sportsteam/#">{{user.name}}</a></li>
+							<li><a href="/sportsteam/#">Balance: {{wallet.balance}}</a></li>
+						</ul>
+					{{else}}
+						<ul class="d-flex flex-row align-items-start justify-content-end">
+							<li><a href="/sportsteam/#">Sign up</a></li>
+							<li><a href="/sportsteam/#">Sign in</a></li>
+						</ul>
+					{{/if}}
+				</div>
+				<nav class="menu_nav">
+					<ul class="text-right">
+						<li><a href="/">home</a></li>
+						<li><a href="/about">about us</a></li>
+						
+					</ul>
+				</nav>
+				<div class="menu_links">
+					<ul class="d-flex flex-row align-items-start justify-content-start">
+						<li><a href="/wallet/mywallet">Load Wallet</a></li>
+						<li><a href="/wallet/mywallet">My Wallet</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Home -->
