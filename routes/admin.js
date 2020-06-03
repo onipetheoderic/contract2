@@ -16,6 +16,8 @@ router.route('/app2')
 router.route('/login')
     .get(AuthDashboard.login)
     .post(AuthDashboard.login_post)
+router.route('/get_all_highway_contract_api/:id')
+    .get(ContractController.get_all_highway_contract_api)
 
 router.route('/get_all_highway_contracts_by_highway_id/:id')
     .get(ContractController.get_all_highway_contracts_by_highway_id)

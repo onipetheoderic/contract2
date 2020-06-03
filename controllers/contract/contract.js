@@ -123,9 +123,22 @@ exports.make_contract_priority= function(req, res) {
     }
    
 }
-exports.login_to_highway = function(req, res){
-    //trigger login point from here
+
+
+exports.get_all_highway_contract_api = function(req, res){
+    let highwayInspectorId = req.params.id
+    Contract.find({highwayInspectorId:highwayInspectorId}, 'projectTitle state lga prioritize contractType', 
+    function(err, all_contracts){
+        if(err){
+            console.log(err)
+        }
+        else {
+            res.json(all_contracts)
+        }      
+    })
 }
+
+
 
 exports.get_all_highway_contracts_by_highway_id = function(req, res){
     let highwayInspectorId = req.params.id
