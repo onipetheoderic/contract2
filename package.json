@@ -84,7 +84,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.2.0",
     "react-addons-test-utils": "^15.6.2",
-    "react-dev-utils": "^5.0.3",
+    "react-dev-utils": "^11.0.4",
     "react-dom": "^16.2.0",
     "sass-loader": "^6.0.6",
     "sinon": "^7.5.0",
